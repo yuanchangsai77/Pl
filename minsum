@@ -1,5 +1,5 @@
 import re
-def findres():
+def findres(s):
   numbers=re.findall(r'-?\d+',s)
   res=0
   for num in numbers:
@@ -21,7 +21,7 @@ def min_sum_of_numbers(s):
     res=0
     for num in numbers:
         if num.startswith("-"):
-            res-=num[1:]
+            res-=int(num[1:])
         else:
             for i in num:
                 res+=int(i)
