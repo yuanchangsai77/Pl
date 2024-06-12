@@ -1,0 +1,18 @@
+#OD54字符串分割(二)
+def outstr(k, s):
+    parts=s.split('-')
+    res=[parts[0]]
+    remainingpart=''.join(parts[1:])
+    newparts=[remainingpart[i:i+k] for i in range(0,len(remainingpart),k)]
+    for i in range(len(newparts)):
+        lowcount=sum(1 for c in newparts[i] if c.islower())
+        upcount=sum(1 for c in newparts[i] if c.isupper())
+        if lowcount>upcount:
+            newparts[i]=newparts[i].lower()
+        elif lowcount<upcount:
+            newparts[i]=newparts[i].upper()
+        res.append(newparts[i])
+    return '-'.join(res)
+k=int(input())
+s=input()
+print(outstr(k, s))
