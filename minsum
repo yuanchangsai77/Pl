@@ -1,0 +1,13 @@
+import re
+def findres():
+  numbers=re.findall(r'-?\d+',s)
+  res=0
+  for num in numbers:
+    if num.startswith('-'):
+      res+=int(num[1:])
+    else:
+      for i in num:
+        res+=int(i)
+  return res
+s=input()
+print(findres())
