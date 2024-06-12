@@ -1,3 +1,4 @@
+#OD149. 求字符串中所有整数的最小和
 import re
 def findres(s):
   numbers=re.findall(r'-?\d+',s)
