@@ -1,0 +1,22 @@
+#OD153求满足条件的最长子串的长度
+def findres(s):
+    res=-1
+    isoneW=False
+    isoneD=False
+    start=0
+    count=0
+    for end in range(len(s)):
+        if 'z'>=s[end]>='a' or 'Z'>=s[end]>='A':
+            isoneW=True
+            count+=1
+        else:
+            isoneD=True
+        while count>1:
+            if s[start].isalpha():
+                count-=1
+            start+=1
+        if count==1:
+            res=max(end-start+1,res)
+    return res if isoneW and isoneD else -1
+s=input()
+print(findres(s))
