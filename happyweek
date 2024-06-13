@@ -1,0 +1,86 @@
+#OD197欢乐的周末
+from collections import deque
+
+def bfs(m,n,start,grid):
+    queue=deque([start])
+    directions=[(0,1),(0,-1),(1,0),(-1,0)]
+    reachable=set()
+    while queue:
+        x,y=queue.popleft()
+        for dx,dy in directions:
+            nx,ny=x+dx,y+dy
+            if 0<=nx<m and 0<=ny<n and grid[nx][ny]!=1:
+                reachable.add((nx,ny))
+                queue.append((nx,ny))
+    return reachable
+
+def happyweek(m,n,grid):
+    start1=start2=None
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j]==2:
+                if not start1:
+                    start1=(i,j)
+                else:
+                    start2=(i,j)
+    reachable1=bfs(m,n,start1,grid)
+    reachable2=bfs(m,n,start2,grid)
+    res=0
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j]==3 and (i,j)in reachable1 and (i,j)in reachable2:
+                res+=1
+    return res
+
+m,n=map(int,input().strip().split())
+grid=[]
+for _ in range(m):
+    grid.append(list(map(int,input().strip().split())))
+print(happyweek(m,n,grid))
+
+#gpt
+from collections import deque
+
+def bfs(m, n, start, grid):
+    queue = deque([start])
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    # 在grid上直接标记访问过的，使用-1表示已访问过的非障碍点
+    grid[start[0]][start[1]] = -1
+    reachable = set([start])  # 添加起点为可达
+
+    while queue:
+        x, y = queue.popleft()
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] != 1 and grid[nx][ny] != -1:
+                grid[nx][ny] = -1  # 标记为已访问
+                reachable.add((nx, ny))
+                queue.append((nx, ny))
+    return reachable
+
+def happyweek(m, n, grid):
+    start1 = start2 = None
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == 2:
+                if not start1:
+                    start1 = (i, j)
+                else:
+                    start2 = (i, j)
+    # 克隆地图以便于第二次BFS使用
+    grid_clone = [row[:] for row in grid]
+    reachable1 = bfs(m, n, start1, grid)
+    reachable2 = bfs(m, n, start2, grid_clone)
+
+    res = 0
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == 3 and (i, j) in reachable1 and (i, j) in reachable2:
+                res += 1
+    return res
+
+m, n = map(int, input().strip().split())
+grid = []
+for _ in range(m):
+    grid.append(list(map(int, input().strip().split())))
+print(happyweek(m, n, grid))
