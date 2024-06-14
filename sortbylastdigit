@@ -1,0 +1,28 @@
+#OD200整型数组按个位值排序
+s=list(map(int,input().strip().split(',')))
+def neworderlist(s):
+    ns=[]
+    for i in range(10):
+        for st in s:
+            if abs(int(st)) % 10 ==i:
+                ns.append(int(st))
+    return ns
+res=','.join(map(str,neworderlist(s)))
+print(res)
+#2
+# s=list(map(int,input().strip().split(',')))
+# def neworderlist(s):
+#     return sorted(s,key=lambda x:abs(x)%10)
+# res=','.join(map(str,neworderlist(s)))
+# print(res)
+
+#gpt
+def sort_by_least_digit(numbers):
+    # 使用 sorted() 函数进行稳定排序，排序依据为每个数字的最低位
+    return sorted(numbers, key=lambda x: abs(x) % 10)
+
+numbers = list(map(int, input().strip().split(',')))
+sorted_numbers = sort_by_least_digit(numbers)
+result_str = ','.join(map(str, sorted_numbers))
+print(result_str)
+
