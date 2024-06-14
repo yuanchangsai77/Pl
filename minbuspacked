@@ -1,0 +1,16 @@
+#OD210停车场车辆统计
+def minbuspacked(s):
+    res=0
+    count=0
+    for i in range(len(s)):
+        count+=s[i]
+        if s[i]==0 or i==len(s)-1:
+            while count>=3:
+                res+=count//3
+                count=count%3
+            if count!=0:
+                res+=1
+                count=0
+    return res
+s=list(map(int,input().strip().split(',')))
+print(minbuspacked(s))
