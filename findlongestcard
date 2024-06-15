@@ -1,0 +1,33 @@
+#OD216连续出牌数量、最长连续手牌
+def findlongestcard(nums,colors):
+    combine=list(zip(nums,colors))
+    def trackback(played,remain):
+        maxlong=len(played)
+        lastplayed=played[-1] if played else None
+        for i in range(len(remain)):
+            if  lastplayed is None or remain[i][1]==lastplayed[1] or remain[i][0]==lastplayed[0]:
+                newplayed=played+[remain[i]]
+                newremain=remain[:i]+remain[i+1:]
+                maxlong=max(maxlong,trackback(newplayed,newremain))
+        return maxlong
+    return trackback([],combine)
+nums=list(map(int,input().strip().split()))
+colors=list(input().strip().split())
+print(findlongestcard(nums,colors))
+
+#练习
+def findlongestcard(nums,colors):
+  combine=list(zip(nums,colors))
+  def trackback(played,remain):
+    maxlong=len(played)
+    lastplayed=played[-1] if played else None
+    for i in range(len(remain)):
+      if lastplayed is None or lastplayed[0]==remain[i][0] or lastplayed[1]==remain[i][1]:
+        newplayed=played+[remain[i]]
+        newremain=remain[:i]+remain[i+1:]
+        maxlong=max(maxlong,trackback(newplayed,newremain))
+    return maxlong
+  return trackback([],combine)
+nums=list(map(int,input().strip().split()))
+colors=list(input().strip().split())
+print(findlongestcard(nums,colors))
